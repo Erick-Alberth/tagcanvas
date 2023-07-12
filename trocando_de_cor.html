@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudando de cor</title>
+</head>
+<body>
+    <canvas width="600" height="400" id="canvas"></canvas>
+
+    <script>
+        var tela = document.getElementById('canvas')
+        var pincel = tela.getContext('2d')
+
+        pincel.fillStyle = 'grey';
+        pincel.fillRect(0, 0, 600, 400);
+
+        var cores = ['blue', 'red', 'green']
+        var indiceAtual = 0;
+
+        function desenhaCirculo (evento) {
+            var x = evento.pageX - tela.offsetLeft
+            var y = evento.pageY - tela.offsetTop
+            
+            pincel.fillStyle = cores[indiceAtual]
+            pincel.beginPath();
+            pincel.arc(x, y, 10, 0, 2 * 3.14)
+            pincel.fill();
+
+            console.log(x + ',' + y);
+        }
+
+        tela.onclick = desenhaCirculo
+
+        function mudaCor() {
+            indiceAtual++
+            if (indiceAtual >= cores.length) {
+                indiceAtual = 0; //volta para a primeira cor azul, se passar de dois que é o índice
+            }
+            return false
+        }
+
+        tela.oncontextmenu = mudaCor //quando clico no botão direito
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudando de cor</title>
+</head>
+<body>
+    <canvas width="600" height="400" id="canvas"></canvas>
+    <br>
+    Escolha uma cor <input type="color" id="cor">
+
+    <script>
+        var tela = document.getElementById('canvas')
+        var cor = document.getElementById('cor')
+        var pincel = tela.getContext('2d')
+
+        pincel.fillStyle = 'grey';
+        pincel.fillRect(0, 0, 600, 400);
+        
+        var desenha = false
+
+        function desenhaCirculo (evento) {
+
+            if (desenha) { //se desenha for true o if é executado
+            var x = evento.pageX - tela.offsetLeft
+            var y = evento.pageY - tela.offsetTop
+            
+            pincel.fillStyle = cor.value; //pega o valor atual da paleta
+            pincel.beginPath();
+            pincel.arc(x, y, 10, 0, 2 * 3.14)
+            pincel.fill();
+
+            console.log(x + ',' + y);
+            }
+        }
+
+        tela.onmousemove = desenhaCirculo //quando eu mover o mouse.
+
+        function habilitaDesenhar() {
+            desenha = true;
+        }
+
+        function desabilitaDesenhar() {
+            desenha = false;
+        }
+
+        tela.onmousedown = habilitaDesenhar //serve para executar um código quando o botão esquerdo do mouse é pressionado
+
+        tela.onmouseup = desabilitaDesenhar // executa algo quando o botão esquerdo do mouse é solto.
+    </script>
+</body>
+</html>
